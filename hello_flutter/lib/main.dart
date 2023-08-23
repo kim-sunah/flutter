@@ -12,31 +12,50 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          children: [
-            Text(
-              "Hello Flutter",
-              style: TextStyle(
-                fontSize: 28,
-              ),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "Hello Flutter",
+            style: TextStyle(
+              fontSize: 28,
             ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "이메일",
-              ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                // 이미지 추가
+                Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Image.network(
+                    "https://avatars.githubusercontent.com/u/69501036?v=4",
+                    width: 100,
+                  ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                  ),
+                ),
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.only(top: 24),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Log in'),
+                  ),
+                )
+              ],
             ),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "비밀번호",
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Log in'),
-            )
-          ],
+          ),
         ),
       ),
     );
