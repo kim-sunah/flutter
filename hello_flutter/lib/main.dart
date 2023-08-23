@@ -32,6 +32,10 @@ class MyApp extends StatelessWidget {
                 labelText: "비밀번호",
               ),
             ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Log in'),
+            )
           ],
         ),
       ),
