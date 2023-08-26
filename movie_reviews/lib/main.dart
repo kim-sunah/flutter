@@ -51,46 +51,67 @@ class HomePage extends StatelessWidget {
 
     // 화면에 보이는 영역
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Movie Review'),
-          titleTextStyle: TextStyle(
-              color: Colors.black, fontSize: 25.0, fontWeight: FontWeight.bold),
-          actions: [
-            IconButton(
-              icon: new Icon(Icons.perm_identity),
-              tooltip: 'Hi!',
-              onPressed: () => {},
-              color: Colors.black,
-            ),
-          ],
-          backgroundColor: Colors.white,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "영화 제목을 검색해주세요.",
-                    suffixIcon: Icon(Icons.search),
-                    enabledBorder: OutlineInputBorder(),
-                  ),
-                ),
-                Divider(
-                  height: 20,
-                  color: Colors.grey,
-                ), //Expanded 범위에 포함되지 않음
-                ListView.builder(
-                  itemCount: dataList.length,
-                  itemBuilder: (context, index) {
-                    String category = dataList[index]['category'];
-                    String imgUrl = dataList[index]['imgUrl'];
-                  },
-                )
-              ],
+      appBar: AppBar(
+        title: Text('Movie Review'),
+        titleTextStyle: TextStyle(
+            color: Colors.black, fontSize: 25.0, fontWeight: FontWeight.bold),
+        actions: [
+          IconButton(
+            icon: new Icon(Icons.perm_identity),
+            tooltip: 'Hi!',
+            onPressed: () => {},
+            color: Colors.black,
+          ),
+        ],
+        backgroundColor: Colors.white,
+      ),
+      body: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: "영화 제목을 검색해주세요.",
+              suffixIcon: Icon(Icons.search),
+              enabledBorder: OutlineInputBorder(),
             ),
           ),
-        ));
+        ),
+
+        Divider(
+          height: 20,
+          color: Colors.grey,
+        ), //Expanded 범위에 포함되지 않음
+        Expanded(
+            child: ListView.builder(
+          itemCount: dataList.length,
+          itemBuilder: (context, index) {
+            String category = dataList[index]['category'];
+            String imgUrl = dataList[index]['imgUrl'];
+            return Card(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.network(
+                    imgUrl,
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 200,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                  Text(
+                    category,
+                    style: TextStyle(fontSize: 40, color: Colors.white),
+                  ),
+                ],
+              ),
+            );
+          },
+        ))
+      ]),
+    );
   }
 }
