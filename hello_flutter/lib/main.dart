@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
                   padding: const EdgeInsets.all(32),
                   child: Image.network(
                     "https://avatars.githubusercontent.com/u/69501036?v=4",
-                    width: 100,
+                    width: 300,
                   ),
                 ),
                 TextField(
