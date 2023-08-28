@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
           itemBuilder: (context, index) {
             String category = dataList[index]['category'];
             String imgUrl = dataList[index]['imgUrl'];
-            return Card(
+            return Card( 
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 200,
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withOpacity(0.3),
                   ),
                   Text(
                     category,
