@@ -53,7 +53,21 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: feed(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView.separated(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: feed(),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: Color(0xFFFF7E36),
