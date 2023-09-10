@@ -29,4 +29,9 @@ class MemoService extends ChangeNotifier {
     memo.content = content;
     notifyListeners();
   }
+
+  deleteMemo({required int index}) {
+    memoList.removeAt(index);
+    notifyListeners();
+  }
 }
