@@ -8,16 +8,21 @@ import 'main.dart';
 class Memo {
   Memo({
     required this.content,
+    this.checkPin = false,
   });
 
   String content;
+  bool checkPin;
 
   Map toJson() {
-    return {'content': content};
+    return {'content': content, 'checkPin': checkPin};
   }
 
   factory Memo.fromJson(json) {
-    return Memo(content: json['content']);
+    return Memo(
+      content: json['content'],
+      checkPin: json['checkPin'] ?? false,
+    );
   }
 }
 
@@ -42,6 +47,17 @@ class MemoService extends ChangeNotifier {
   updateMemo({required int index, required String content}) {
     Memo memo = memoList[index];
     memo.content = content;
+    notifyListeners();
+    saveMemoList();
+  }
+
+  updateCheckPin({required int index}) {
+    Memo memo = memoList[index];
+    memo.checkPin = !memo.checkPin;
+    memoList = [
+      ...memoList.where((element) => element.checkPin),
+      ...memoList.where((element) => !element.checkPin),
+    ];
     notifyListeners();
     saveMemoList();
   }
