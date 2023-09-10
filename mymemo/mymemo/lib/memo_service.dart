@@ -9,19 +9,28 @@ class Memo {
   Memo({
     required this.content,
     this.checkPin = false,
+    this.updateTime,
   });
 
   String content;
   bool checkPin;
+  DateTime? updateTime;
 
   Map toJson() {
-    return {'content': content, 'checkPin': checkPin};
+    return {
+      'content': content,
+      'checkPin': checkPin,
+      'updateTime': updateTime?.toIso8601String(),
+    };
   }
 
   factory Memo.fromJson(json) {
     return Memo(
       content: json['content'],
       checkPin: json['checkPin'] ?? false,
+      updateTime: json['updateTime'] == null
+          ? null
+          : DateTime.parse(json['updateTime']),
     );
   }
 }
@@ -38,7 +47,7 @@ class MemoService extends ChangeNotifier {
   ];
 
   createMemo({required String content}) {
-    Memo memo = Memo(content: content);
+    Memo memo = Memo(content: content, updateTime: DateTime.now());
     memoList.add(memo);
     notifyListeners(); // Consumer<MemoService>의 builder 부분을 호출해서 화면 새로고침
     saveMemoList();
@@ -47,6 +56,7 @@ class MemoService extends ChangeNotifier {
   updateMemo({required int index, required String content}) {
     Memo memo = memoList[index];
     memo.content = content;
+    memo.updateTime = DateTime.now();
     notifyListeners();
     saveMemoList();
   }
