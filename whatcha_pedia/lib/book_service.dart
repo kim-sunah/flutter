@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:whatcha_pedia/main.dart';
 
 import 'book.dart';
 
 class BookService extends ChangeNotifier {
+  BookService() {
+    loadLikedBookList();
+  }
   List<Book> bookList = []; // 책 목록
   List<Book> likedBookList = [];
 
@@ -31,6 +37,8 @@ class BookService extends ChangeNotifier {
           id: item['id'],
           title: item['volumeInfo']['title'] ?? "",
           subtitle: item['volumeInfo']['subtitle'] ?? "",
+          authors: item['volumeInfo']['authors'] ?? [],
+          publishedDate: item['volumeInfo']['publishedDate'] ?? "",
           thumbnail: item['volumeInfo']['imageLinks']?['thumbnail'] ??
               "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg",
           previewLink: item['volumeInfo']['previewLink'] ?? "",
@@ -39,5 +47,22 @@ class BookService extends ChangeNotifier {
       }
     }
     notifyListeners();
+    saveLikedBookList();
+  }
+
+  saveLikedBookList() {
+    List likeBookJsonList = likedBookList.map((book) {
+      return book.toJson();
+    }).toList();
+    String jsonString = jsonEncode(likeBookJsonList);
+    prefs.setString('likedBookList', jsonString);
+  }
+
+  loadLikedBookList() {
+    String? jsonString = prefs.getString('likedBookList');
+    if (jsonString == null) return;
+    List likedBookJsonList = jsonDecode(jsonString);
+    likedBookList =
+        likedBookJsonList.map((json) => Book.fromJson(json)).toList();
   }
 }

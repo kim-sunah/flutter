@@ -23,3 +23,5 @@ samples, guidance on mobile development, and a full API reference.
     flutter pub add dio
 3. 웹뷰 설치
     flutter pub add webview_flutter
+4. shared_preferences 2.2.1 icon indicating copy to clipboard operation
+    flutter pub add shared_preferences
