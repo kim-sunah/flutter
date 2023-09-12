@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:whatcha_pedia/book.dart';
 
 import 'book_service.dart';
@@ -122,6 +123,23 @@ class SearchPage extends StatelessWidget {
   }
 }
 
+class WebViewPage extends StatelessWidget {
+  WebViewPage({super.key, required this.url});
+
+  String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Text(url),
+      ),
+      body: WebView(initialUrl: url),
+    );
+  }
+}
+
 class BookTile extends StatelessWidget {
   const BookTile({
     super.key,
@@ -135,7 +153,16 @@ class BookTile extends StatelessWidget {
     BookService bookService = context.read<BookService>();
 
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WebViewPage(
+              url: book.previewLink.replaceFirst("http", "https"),
+            ),
+          ),
+        );
+      },
       leading: Image.network(
         book.thumbnail,
         fit: BoxFit.fitHeight,

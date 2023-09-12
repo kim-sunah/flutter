@@ -18,6 +18,8 @@ samples, guidance on mobile development, and a full API reference.
 
 <설치 파일>
 1. provider 패키지 설치
-    flutter pub add dio
+    flutter pub add provider
 2. dio
     flutter pub add dio
+3. 웹뷰 설치
+    flutter pub add webview_flutter
